@@ -1,0 +1,51 @@
+repos:
+  - repo: https://github.com/psf/black
+    rev: 23.11.0
+    hooks:
+      - id: black
+        # It is recommended to specify the latest version of Python
+        # supported by your project here, or alternatively use
+        # pre-commit's default_language_version, see
+        # https://pre-commit.com/#top_level-default_language_version
+        language_version: python3.10
+  - repo: https://github.com/pycqa/isort
+    rev: 5.12.0
+    hooks:
+      - id: isort
+        args: ["--profile", "black", "--filter-files"]
+  - repo: https://github.com/asottile/pyupgrade
+    rev: v3.15.0
+    hooks:
+      - id: pyupgrade
+        args: ["--py3-plus","--py37-plus","--py38-plus","--py39-plus","--py310-plus"]
+  - repo: ssh://git@gitlab-gxp.cloud.health.ge.com/CSP/testautomation/rfcodestyle.git
+    rev: 0.8.1
+    hooks:
+      - id: rfcodestyle
+        args: [
+           "--rflint-cfg=config/rflint/taf/rflint_taf_v4.0.txt",
+           "--robocop-cfg=config/robocop/robocop-taf.cfg",
+           ]
+      - id: rfcodetidy
+        args: [
+           "--config=config/robotidy.toml",
+           ]
+  - repo: local
+    hooks:
+      - id: pylint
+        name: pylint
+        entry: poetry run pylint
+        language: system
+        types: [python]
+        args: [
+             "-rn", # Only display messages
+             "-sn", # Don't display the score
+             "--rcfile=config/pylintrc.cfg", # Link to your config file
+             "--disable=import-error",
+             ]
+#  - repo: https://github.com/pre-commit/mirrors-mypy
+#    rev: v1.5.1
+#    hooks:
+#      - id: mypy
+#        args: []
+             

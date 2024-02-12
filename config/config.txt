@@ -1,0 +1,8 @@
+--outputdir ./test-results/
+--output rfRunResult.xml
+--report rfRunReport
+--log rfRunLog
+--debugfile rfRunDebug
+--consolewidth 100
+
+#--suite both_device_tests2

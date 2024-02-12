@@ -1,0 +1,118 @@
+[tool.poetry]
+name = "rf-resource-issue"
+version = "1.0.dev1"
+description = "RF Resource reloading issue"
+license = "Proprietary"
+authors = ["Jyrki Lindroos <jyrki.lindroos@gehealthcare.com>"]
+maintainers = ["Team Droid <team.droid@gehealthcare.com>"]
+readme = "README.md"
+packages = [
+    { include = "rfresissue", from = "libraries" },
+    { include = "rfresissue", from = "resources" },
+]
+
+[tool.poetry.dependencies]
+python = "^3.10"
+single-source = "^0"
+
+robotframework = "~7"
+robotframework-pythonlibcore = "~4.3"
+
+[tool.poetry.group.dev]
+optional = true
+
+[tool.poetry.group.dev.dependencies]
+pre-commit = "^3.3"
+black = "^23.3"
+coverage = "^7.2"
+pycodestyle = "^2.10.0"
+mypy = "^1.3.0"
+pylint = "^2.17"
+pytest = "^7.3.1"
+pytest-mock = "^3.10"
+pytest-pycodestyle = "^2.3.1"
+pytest-cov = "^4.1.0"
+pytest-pylint = "^0"
+pytest-mypy = "^0"
+pytest-black = "^0"
+pytest-isort = "^3.1"
+pylint-fixme-info = "^1.0"
+
+# pytest settings
+[tool.pytest.ini_options]
+minversion = "6.0"
+addopts = """--junitxml=test-results/unittests.xml \
+		  --cov --cov-config pyproject.toml --cov-report html \
+		  --pylint-rcfile=config/pylintrc.cfg  \ 
+          """
+junit_family = "xunit2"
+testpaths = ["tests", "src"]
+markers = []
+filterwarnings = [
+	'ignore:invalid escape sequence \\s:DeprecationWarning',
+	"ignore:.*BlackItem.*:DeprecationWarning",
+	"ignore:BlackItem:UserWarning",
+	'ignore:The \(fspath:DeprecationWarning',
+	"ignore:Using or importing the ABCs from 'collections':DeprecationWarning",
+	"ignore:Using the __implements__ inheritance pattern for BaseReporter is no longer supported.",
+	"ignore:--ignore-mixin-members has been deprecated.",
+	"ignore:Specifying exception names in the overgeneral-exceptions option without module name is deprecated:UserWarning",
+]
+
+### Coverage configs ################
+[tool.coverage.run]
+source = ["src"]
+branch = true
+data_file ="test-results/tmp/.coverage"
+
+[tool.coverage.report]
+ignore_errors = true
+skip_covered = true
+show_missing = true
+
+[tool.coverage.html]
+directory = "test-results/test_coverage"
+
+# mypy configuration
+[tool.mypy]
+mypy_path = "src,test"
+python_version = "3.10"
+pretty = true
+show_error_codes = true
+show_error_context = true
+warn_return_any = true
+warn_unused_configs = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_unreachable=true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_defs = true
+
+[[tool.mypy.overrides]]
+module = [
+    "robot.*",
+    "robotlibcore.*",
+]
+ignore_missing_imports = true
+
+[tool.black]
+line-length = "120"
+target-version = ["py310"]
+
+[tool.isort]
+profile = "black"
+line_length = "120"
+
+[[tool.poetry.source]]
+name = "artifactory"
+url = "https://hc-eu-west-aws-artifactory.cloud.health.ge.com/artifactory/api/pypi/pypi-csp-all/simple"
+priority = "default"
+
+[[tool.poetry.source]]
+name = "PyPI"
+priority = "primary"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
