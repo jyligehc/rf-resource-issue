@@ -5,4 +5,12 @@
 --debugfile rfRunDebug
 --consolewidth 100
 
-#--suite both_device_tests2
+#--dryrun
+
+#--variable DEVICE_NAME:device2
+--variable SIM_TYPE:typea
+
+#--suite device_one
+#--suite device_two
+--suite dryrun
+

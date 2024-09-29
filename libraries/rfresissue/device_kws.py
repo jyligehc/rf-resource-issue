@@ -20,8 +20,9 @@ class DeviceKws(HybridCore):
         """Constructor"""
         self._device1 = Device1()
         self._device2 = Device2()
-        HybridCore.__init__(self, [self._device1])
-        self._current_device: Device = self._device1
+        self._current_device: Device = self._get_device_by_name(self._get_device_name(self._device1))
+
+        HybridCore.__init__(self, [self._current_device])
         self._set_device_name()
 
     @keyword
@@ -54,5 +55,17 @@ class DeviceKws(HybridCore):
         qualname = f"{mytype.__module__}.{mytype.__qualname__}"
         return qualname
 
+    def _get_device_by_name(self, device_name: str) -> Device:
+        match device_name:
+            case "device1":
+                return self._device1
+            case "device2":
+                return self._device2
+            case _:
+                return self._current_device
+
     def _set_device_name(self) -> None:
         BuiltIn().set_global_variable("${DEVICE_NAME}", self._current_device.get_name())
+
+    def _get_device_name(self, default: Device) -> str:
+        return str(BuiltIn().get_variable_value("${DEVICE_NAME}", default.get_name()))

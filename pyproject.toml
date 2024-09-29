@@ -15,7 +15,7 @@ packages = [
 python = "^3.10"
 single-source = "^0"
 
-robotframework = "~7"
+robotframework = "7.1"
 robotframework-pythonlibcore = "~4.3"
 
 [tool.poetry.group.dev]
@@ -104,10 +104,10 @@ target-version = ["py310"]
 profile = "black"
 line_length = "120"
 
-[[tool.poetry.source]]
-name = "artifactory"
-url = "https://hc-eu-west-aws-artifactory.cloud.health.ge.com/artifactory/api/pypi/pypi-csp-all/simple"
-priority = "default"
+#[[tool.poetry.source]]
+#name = "artifactory"
+#url = "https://eu-artifactory.cloud.health.ge.com/artifactory/api/pypi/pypi-csp-all/simple"
+#priority = "default"
 
 [[tool.poetry.source]]
 name = "PyPI"

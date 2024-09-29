@@ -1,6 +1,6 @@
 *** Keywords ***
 Common Device User Keyword
-    RETURN    Device1
+    RETURN    Device2
 
-Custom Device1 User Keyword
-    RETURN    Device1
+Custom Device2 User Keyword
+    RETURN    Device2

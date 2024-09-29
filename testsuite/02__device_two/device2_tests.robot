@@ -1,6 +1,7 @@
 *** Settings ***
 Library     rfresissue.device_kws.DeviceKws
 Resource    rfresissue/${DEVICE_NAME}/user_kws.resource
+# Resource    rfresissue/device2/user_kws.resource
 
 
 *** Test Cases ***
